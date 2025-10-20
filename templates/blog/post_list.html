@@ -1,37 +1,142 @@
-
 {% extends 'base.html' %}
-{% block title %}Inicio{% endblock %}
+{% block title %}Inicio - Mi Blog Personal{% endblock %}
 {% block content %}
-<h1 class="mb-3">Posts</h1>
-{% if page_obj.object_list %}
-  <div class="list-group mb-3">
-    {% for post in page_obj.object_list %}
-      <a class="list-group-item list-group-item-action" href="{% url 'post_detalle' post.pk %}">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{ post.titulo }}</h5>
-          <small>{{ post.fecha_pub|date:"d/m/Y H:i" }}</small>
-        </div>
-        <p class="mb-1 text-muted">Por {{ post.autor.nombre }}{% if post.categoria %} — {{ post.categoria.nombre }}{% endif %}</p>
-        <p class="mb-0">{{ post.contenido|truncatechars:120 }}</p>
-      </a>
-    {% endfor %}
+
+<div class="page-header">
+  <div class="container">
+    <h1><span class="me-3">📰</span>Bienvenido a Mi Blog</h1>
+    <p>Descubre artículos interesantes y comparte tus ideas con el mundo</p>
   </div>
-  <nav aria-label="Paginación">
-    <ul class="pagination">
-      {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
-      {% else %}
-        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-      {% endif %}
-      <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
-      {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
-      {% else %}
-        <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-      {% endif %}
-    </ul>
-  </nav>
-{% else %}
-  <div class="alert alert-info">No hay posts publicados aún.</div>
-{% endif %}
+</div>
+
+<div class="container mb-5">
+  {% if page_obj.object_list %}
+    <div class="row g-4">
+      {% for post in page_obj.object_list %}
+        <div class="col-lg-6 col-xl-4">
+          <div class="card h-100">
+            <div class="card-header bg-transparent border-0 pb-0">
+              <div class="d-flex justify-content-between align-items-start">
+                <span class="badge bg-primary rounded-pill">
+                  <span class="me-1">🏷️</span>
+                  {% if post.categoria %}{{ post.categoria.nombre }}{% else %}General{% endif %}
+                </span>
+                <small class="text-muted">
+                  <span class="me-1">🕐</span>
+                  {{ post.fecha_pub|date:"d/m/Y" }}
+                </small>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              <h5 class="card-title mb-3">
+                <a href="{% url 'post_detalle' post.pk %}" class="text-decoration-none text-dark">
+                  {{ post.titulo }}
+                </a>
+              </h5>
+              
+              <p class="card-text text-muted mb-3">
+                {{ post.contenido|truncatechars:150 }}
+              </p>
+              
+              <div class="d-flex align-items-center mb-3">
+                <div class="avatar-circle me-2">
+                  👤
+                </div>
+                <div>
+                  <small class="text-muted">Por</small>
+                  <strong>{{ post.autor.nombre }}</strong>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card-footer bg-transparent border-0 pt-0">
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'post_detalle' post.pk %}" class="btn btn-primary btn-sm">
+                  <span class="me-1">➡️</span>Leer más
+                </a>
+                <small class="text-muted">
+                  <span class="me-1">👁️</span>{{ post.fecha_pub|date:"H:i" }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Paginación elegante -->
+    {% if page_obj.paginator.num_pages > 1 %}
+      <nav aria-label="Paginación" class="mt-5">
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}">
+                <span class="me-1">◀️</span>Anterior
+              </a>
+            </li>
+          {% endif %}
+          
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+              </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}">{{ num }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}">
+                Siguiente<span class="ms-1">▶️</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+    
+  {% else %}
+    <div class="text-center py-5">
+      <div class="card border-0" style="background: rgba(255,255,255,0.8);">
+        <div class="card-body py-5">
+          <span style="font-size: 4rem;" class="mb-4 d-block">📰</span>
+          <h3 class="text-muted mb-3">¡Aún no hay posts!</h3>
+          <p class="text-muted mb-4">Sé el primero en crear contenido increíble para este blog.</p>
+          <a href="{% url 'crear_post' %}" class="btn btn-primary">
+            <span class="me-2">➕</span>Crear mi primer post
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+.avatar-circle {
+  width: 35px;
+  height: 35px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.card-title a:hover {
+  color: #667eea !important;
+}
+
+.btn-sm {
+  padding: 8px 20px;
+  font-size: 0.875rem;
+}
+</style>
+
 {% endblock %}

@@ -3,7 +3,7 @@
     "model": "blog.autor",
     "pk": 1,
     "fields": {
-      "nombre": "Ana Arroyo",
+      "nombre": "Ana Banana",
       "email": "ana@example.com",
       "bio": "Autora de tecnología."
     }
@@ -38,7 +38,7 @@
     "pk": 1,
     "fields": {
       "titulo": "Primer post de tecnología",
-      "contenido": "Contenido inicial sobre tech.",
+      "contenido": "No lo se Rick...",
       "fecha_pub": "2025-10-20T21:10:29.503951",
       "publicado": true,
       "autor": 1,
@@ -74,7 +74,7 @@
     "pk": 4,
     "fields": {
       "titulo": "Explorando el cosmos",
-      "contenido": "Galaxias, estrellas y más.",
+      "contenido": "Desde el sol a Urano",
       "fecha_pub": "2025-10-20T21:10:29.503951",
       "publicado": true,
       "autor": 2,

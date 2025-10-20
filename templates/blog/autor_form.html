@@ -1,11 +1,120 @@
-
 {% extends 'base.html' %}
+{% block title %}Crear Nuevo Autor - Mi Blog Personal{% endblock %}
 {% block content %}
-  <form method="post" class="card card-body">
-    <h1 class="mb-3">Nuevo Autor</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Cancelar</a>
-  </form>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-lg">
+        <div class="card-header bg-transparent border-0 text-center py-4">
+          <h2 class="mb-0">
+            <span class="me-3" style="background: var(--success-gradient); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">👤➕</span>
+            Nuevo Autor
+          </h2>
+          <p class="text-muted mt-2">Agrega un nuevo escritor al blog</p>
+        </div>
+        
+        <div class="card-body p-5">
+          <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="row g-4">
+              <div class="col-12">
+                <label for="{{ form.nombre.id_for_label }}" class="form-label fw-semibold">
+                  <span class="me-2 text-primary">✍️</span>Nombre Completo
+                </label>
+                {{ form.nombre }}
+                <div class="form-text">El nombre que aparecerá en los posts publicados</div>
+              </div>
+              
+              <div class="col-12">
+                <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">
+                  <span class="me-2 text-primary">📧</span>Correo Electrónico
+                </label>
+                {{ form.email }}
+                <div class="form-text">Email de contacto del autor</div>
+              </div>
+              
+              <div class="col-12">
+                <label for="{{ form.bio.id_for_label }}" class="form-label fw-semibold">
+                  <span class="me-2 text-primary">ℹ️</span>Biografía
+                </label>
+                {{ form.bio }}
+                <div class="form-text">Una breve descripción sobre el autor (opcional)</div>
+              </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                <span class="me-2">❌</span>Cancelar
+              </a>
+              <button type="submit" class="btn btn-success">
+                <span class="me-2">✅</span>Crear Autor
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.form-control, .form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #4facfe;
+  box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+}
+
+.form-label {
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.form-text {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.needs-validation .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.needs-validation .form-control:valid {
+  border-color: #28a745;
+}
+</style>
+
+<script>
+// Validación de formulario
+(function() {
+  'use strict';
+  
+  const form = document.querySelector('.needs-validation');
+  
+  form.addEventListener('submit', function(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    form.classList.add('was-validated');
+  }, false);
+})();
+</script>
+
 {% endblock %}

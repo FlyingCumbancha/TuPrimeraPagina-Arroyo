@@ -1,12 +1,164 @@
-
 {% extends 'base.html' %}
-{% block title %}{{ post.titulo }}{% endblock %}
+{% block title %}{{ post.titulo }} - Mi Blog Personal{% endblock %}
 {% block content %}
-  <article class="mb-4">
-    <h1>{{ post.titulo }}</h1>
-    <p class="text-muted">Por {{ post.autor.nombre }}{% if post.categoria %} — {{ post.categoria.nombre }}{% endif %} — {{ post.fecha_pub|date:"d/m/Y H:i" }}</p>
-    <hr>
-    <p>{{ post.contenido|linebreaks }}</p>
-  </article>
-  <a href="{% url 'home' %}" class="btn btn-secondary">Volver</a>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <article class="card border-0 shadow-lg">
+        <!-- Header del artículo -->
+        <div class="card-header bg-transparent border-0 py-4">
+          <div class="text-center mb-4">
+            <span class="badge bg-primary rounded-pill mb-3">
+              <span class="me-1">🏷️</span>
+              {% if post.categoria %}{{ post.categoria.nombre }}{% else %}General{% endif %}
+            </span>
+            
+            <h1 class="display-5 fw-bold mb-4">{{ post.titulo }}</h1>
+            
+            <div class="d-flex align-items-center justify-content-center flex-wrap gap-3">
+              <div class="d-flex align-items-center">
+                <div class="avatar-circle me-2">
+                  👤
+                </div>
+                <div class="text-start">
+                  <small class="text-muted d-block">Autor</small>
+                  <strong>{{ post.autor.nombre }}</strong>
+                </div>
+              </div>
+              
+              <div class="vr d-none d-md-block"></div>
+              
+              <div class="text-center">
+                <small class="text-muted d-block">Publicado</small>
+                <strong>{{ post.fecha_pub|date:"d/m/Y" }}</strong>
+              </div>
+              
+              <div class="vr d-none d-md-block"></div>
+              
+              <div class="text-center">
+                <small class="text-muted d-block">Hora</small>
+                <strong>{{ post.fecha_pub|date:"H:i" }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contenido del artículo -->
+        <div class="card-body px-5 py-4">
+          <div class="article-content">
+            {{ post.contenido|linebreaks }}
+          </div>
+        </div>
+        
+        <!-- Footer del artículo -->
+        <div class="card-footer bg-transparent border-0 py-4">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div class="d-flex gap-2">
+              <span class="badge bg-light text-dark">
+                <span class="me-1">📅</span>{{ post.fecha_pub|date:"F Y" }}
+              </span>
+              <span class="badge bg-light text-dark">
+                <span class="me-1">👤</span>{{ post.autor.nombre }}
+              </span>
+            </div>
+            
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary btn-sm" onclick="compartir()">
+                <span class="me-1">📤</span>Compartir
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">
+                <span class="me-1">⬅️</span>Volver al inicio
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Sección de navegación relacionada -->
+      <div class="mt-4">
+        <div class="card border-0" style="background: rgba(255,255,255,0.8);">
+          <div class="card-body text-center py-4">
+            <h5 class="mb-3">¿Te gustó este artículo?</h5>
+            <p class="text-muted mb-4">Explora más contenido interesante o comparte tus propias ideas</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              <a href="{% url 'home' %}" class="btn btn-outline-primary">
+                <span class="me-2">📰</span>Ver más artículos
+              </a>
+              <a href="{% url 'crear_post' %}" class="btn btn-success">
+                <span class="me-2">➕</span>Escribir un post
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.article-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.article-content p {
+  margin-bottom: 1.5rem;
+}
+
+.avatar-circle {
+  width: 45px;
+  height: 45px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.display-5 {
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.vr {
+  width: 1px;
+  height: 40px;
+  background-color: #dee2e6;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .display-5 {
+    font-size: 2rem !important;
+  }
+}
+</style>
+
+<script>
+function compartir() {
+  if (navigator.share) {
+    navigator.share({
+      title: '{{ post.titulo }}',
+      text: '{{ post.contenido|truncatechars:100 }}',
+      url: window.location.href
+    });
+  } else {
+    // Fallback: copiar URL al portapapeles
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('¡Enlace copiado al portapapeles!');
+    });
+  }
+}
+</script>
+
 {% endblock %}
