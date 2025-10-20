@@ -1,0 +1,108 @@
+[
+  {
+    "model": "blog.autor",
+    "pk": 1,
+    "fields": {
+      "nombre": "Ana Arroyo",
+      "email": "ana@example.com",
+      "bio": "Autora de tecnología."
+    }
+  },
+  {
+    "model": "blog.autor",
+    "pk": 2,
+    "fields": {
+      "nombre": "Bruno Díaz",
+      "email": "bruno@example.com",
+      "bio": "Escribe sobre ciencia."
+    }
+  },
+  {
+    "model": "blog.categoria",
+    "pk": 1,
+    "fields": {
+      "nombre": "Tecnología",
+      "slug": "tecnologia"
+    }
+  },
+  {
+    "model": "blog.categoria",
+    "pk": 2,
+    "fields": {
+      "nombre": "Ciencia",
+      "slug": "ciencia"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 1,
+    "fields": {
+      "titulo": "Primer post de tecnología",
+      "contenido": "Contenido inicial sobre tech.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 1,
+      "categoria": 1
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 2,
+    "fields": {
+      "titulo": "Noticias de ciencia",
+      "contenido": "Datos y hallazgos científicos.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 2,
+      "categoria": 2
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 3,
+    "fields": {
+      "titulo": "Django para principiantes",
+      "contenido": "MVT, templates y vistas.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 1,
+      "categoria": 1
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 4,
+    "fields": {
+      "titulo": "Explorando el cosmos",
+      "contenido": "Galaxias, estrellas y más.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 2,
+      "categoria": 2
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 5,
+    "fields": {
+      "titulo": "Tips de productividad",
+      "contenido": "Hábitos y herramientas.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 1,
+      "categoria": 1
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 6,
+    "fields": {
+      "titulo": "Ciencia de datos básica",
+      "contenido": "Pandas, NumPy y visualización.",
+      "fecha_pub": "2025-10-20T21:10:29.503951",
+      "publicado": true,
+      "autor": 2,
+      "categoria": 2
+    }
+  }
+]
