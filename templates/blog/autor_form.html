@@ -15,6 +15,12 @@
         </div>
         
         <div class="card-body p-5">
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+          
           <form method="post" class="needs-validation" novalidate>
             {% csrf_token %}
             
@@ -24,6 +30,11 @@
                   <span class="me-2 text-primary">✍️</span>Nombre Completo
                 </label>
                 {{ form.nombre }}
+                {% if form.nombre.errors %}
+                  <div class="text-danger small mt-1">
+                    {{ form.nombre.errors|first }}
+                  </div>
+                {% endif %}
                 <div class="form-text">El nombre que aparecerá en los posts publicados</div>
               </div>
               
@@ -32,6 +43,11 @@
                   <span class="me-2 text-primary">📧</span>Correo Electrónico
                 </label>
                 {{ form.email }}
+                {% if form.email.errors %}
+                  <div class="text-danger small mt-1">
+                    {{ form.email.errors|first }}
+                  </div>
+                {% endif %}
                 <div class="form-text">Email de contacto del autor</div>
               </div>
               
@@ -40,6 +56,11 @@
                   <span class="me-2 text-primary">ℹ️</span>Biografía
                 </label>
                 {{ form.bio }}
+                {% if form.bio.errors %}
+                  <div class="text-danger small mt-1">
+                    {{ form.bio.errors|first }}
+                  </div>
+                {% endif %}
                 <div class="form-text">Una breve descripción sobre el autor (opcional)</div>
               </div>
             </div>

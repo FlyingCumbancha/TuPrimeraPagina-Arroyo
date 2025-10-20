@@ -1,26 +1,16 @@
 
-# TuPrimeraPagina+Arroyo
+# Proyecto Pagina Web con Python
 
 Proyecto web desarrollado con **Django** utilizando el patrón **MVT (Model–View–Template)**.  
 Simula un **blog** con herencia de plantillas, formularios para alta de datos y búsqueda en la base de datos.
 
 ---
 
-## 🚀 Objetivo
-Desarrollar una primera aplicación web en Django con:
-- Herencia de HTML.
-- Mínimo **tres clases en models**.
-- Formularios para insertar datos en cada clase.
-- Formulario de búsqueda en la base de datos.
-- Proyecto organizado según el patrón **MVT**.
-
----
-
 ## ⚙️ Tecnologías utilizadas
 - **Python 3.10+**
 - **Django 5.x**
-- **SQLite** (base de datos por defecto)
-- **Bootstrap 5 (CDN)** para los estilos.
+- **SQLite** 
+- **Bootstrap 5 (CDN)** 
 
 ---
 
@@ -54,7 +44,7 @@ python manage.py loaddata seed
 ```bash
 python manage.py runserver
 ```
-Abrí tu navegador en 👉 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+El proyecto se visualiza en localhost:8000
 
 ---
 
@@ -127,41 +117,6 @@ Podés crear un superusuario y administrar todo desde `/admin`:
 python manage.py createsuperuser
 ```
 
----
-
-## 📂 Estructura del proyecto
-
-```
-TuPrimeraPagina+Arroyo/
-├── manage.py
-├── requirements.txt
-├── .gitignore
-├── tuprimera_pagina/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── blog/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── models.py
-│   ├── forms.py
-│   ├── views.py
-│   ├── urls.py
-│   └── fixtures/
-│       └── seed.json
-└── templates/
-    ├── base.html
-    └── blog/
-        ├── post_list.html
-        ├── post_detail.html
-        ├── autor_form.html
-        ├── categoria_form.html
-        └── post_form.html
-```
-
----
-
 ## 🧭 Orden sugerido para probar
 1. Ejecutar el proyecto y visitar `/`.
 2. Crear nuevos autores y categorías.
@@ -169,18 +124,3 @@ TuPrimeraPagina+Arroyo/
 4. Usar la barra superior para buscar por texto o categoría.
 5. Navegar entre páginas con la paginación.
 6. (Opcional) Ingresar a `/admin` para ver la administración de modelos.
-
----
-
-## 🧾 Notas finales
-- Proyecto educativo correspondiente a la **Tercera Entrega** del curso de Python.  
-- Cumple con todos los requisitos de la consigna:  
-  ✅ Herencia de plantillas  
-  ✅ 3 modelos en `models.py`  
-  ✅ Formularios para cada modelo  
-  ✅ Formulario de búsqueda  
-  ✅ Patrón MVT completo  
-  ✅ README con pasos y orden de prueba  
-- Base de datos: **SQLite** (automática al migrar).  
-- Sin dependencias externas adicionales.
-

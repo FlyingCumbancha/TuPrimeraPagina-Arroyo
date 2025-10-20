@@ -1,4 +1,3 @@
-
 from django import forms
 from .models import Autor, Categoria, Post
 
@@ -6,6 +5,23 @@ class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
         fields = ['nombre', 'email', 'bio']
+        widgets = {
+            'nombre': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingresa el nombre completo',
+                'required': True
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'ejemplo@correo.com',
+                'required': True
+            }),
+            'bio': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Escribe una breve biografía (opcional)',
+                'rows': 4
+            })
+        }
 
 class CategoriaForm(forms.ModelForm):
     class Meta:

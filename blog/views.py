@@ -1,7 +1,7 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib import messages
 from .models import Post
 from .forms import AutorForm, CategoriaForm, PostForm, BusquedaForm
 
@@ -29,8 +29,14 @@ def crear_autor(request):
     if request.method == 'POST':
         form = AutorForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('home')
+            try:
+                autor = form.save()
+                messages.success(request, f'¡Autor "{autor.nombre}" creado exitosamente!')
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, f'Error al crear el autor: {str(e)}')
+        else:
+            messages.error(request, 'Por favor corrige los errores en el formulario.')
     else:
         form = AutorForm()
     return render(request, 'blog/autor_form.html', {'form': form})
