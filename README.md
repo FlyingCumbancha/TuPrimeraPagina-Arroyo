@@ -100,7 +100,7 @@ La búsqueda se realiza desde la barra superior:
 
 ### 🧾 Dataset de ejemplo (`blog/fixtures/seed.json`)
 Contiene:
-- 2 autores (`Ana Arroyo`, `Bruno Díaz`).
+- 2 autores (`Ana Banana`, `Bruno Díaz`).
 - 2 categorías (`Tecnología`, `Ciencia`).
 - 6 posts precargados con contenido básico.
 
